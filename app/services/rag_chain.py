@@ -14,7 +14,8 @@ logging.getLogger("transformers").setLevel(logging.ERROR)
 logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
 
 from dotenv import load_dotenv
-from langchain_huggingface import HuggingFaceEmbeddings
+from pydantic import SecretStr
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
@@ -23,12 +24,17 @@ from langchain_core.runnables import RunnablePassthrough
 
 load_dotenv()
 
-# Load once when server starts — not on every request
-print("Loading embedding model into memory...")
-global_embeddings = HuggingFaceEmbeddings(
+# 1. Safely grab the token (use an empty string if it comes back as None)
+hf_token = os.getenv("HF_TOKEN") or ""
+
+print("Connecting to HuggingFace Inference API...")
+
+# 2. Wrap the token in SecretStr to make Pylance and Langchain happy
+global_embeddings = HuggingFaceInferenceAPIEmbeddings(
+    api_key=SecretStr(hf_token),
     model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
-print("Embedding model ready.")
+print("Embeddings ready.")
 
 def get_retriever(car_model: str):
     vector_store = PineconeVectorStore(
