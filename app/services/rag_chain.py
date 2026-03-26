@@ -24,15 +24,14 @@ from langchain_core.runnables import RunnablePassthrough
 
 load_dotenv()
 
-# 1. Safely grab the token (use an empty string if it comes back as None)
 # 1. Safely grab the token
 hf_token = os.getenv("HF_TOKEN") or ""
 
 print("Connecting to HuggingFace Inference API...")
 
-# 2. Use the official Endpoint class
+# 2. Pass the full router URL into the 'model' parameter
 global_embeddings = HuggingFaceEndpointEmbeddings(
-    model="sentence-transformers/all-MiniLM-L6-v2",
+    model="https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2",
     huggingfacehub_api_token=hf_token,
     task="feature-extraction"
 )
