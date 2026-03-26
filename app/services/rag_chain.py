@@ -29,9 +29,8 @@ hf_token = os.getenv("HF_TOKEN") or ""
 
 print("Connecting to HuggingFace Inference API...")
 
-# 2. Pass the full router URL into the 'model' parameter
 global_embeddings = HuggingFaceEndpointEmbeddings(
-    model="https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2",
+    model="sentence-transformers/all-MiniLM-L6-v2",
     huggingfacehub_api_token=hf_token,
     task="feature-extraction"
 )
