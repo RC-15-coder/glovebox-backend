@@ -37,7 +37,7 @@ function App() {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:8000/ask', {
+      const response = await axios.post('https://glovebox-api.onrender.com/ask', {
         car_model: carModel,
         question: question
       });
