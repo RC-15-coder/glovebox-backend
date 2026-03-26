@@ -4,10 +4,10 @@ langchain==0.3.7
 langchain-community==0.3.7
 langchain-groq==0.2.1
 langchain-pinecone==0.2.0
-langchain-huggingface==0.1.2
+langchain-huggingface>=1.2.0
 pinecone-client==5.0.1
 pypdf==4.3.1
 pymupdf==1.24.10
 python-dotenv==1.0.1
 pydantic==2.9.2
-huggingface-hub>=0.27.0
+huggingface-hub>=0.28.0
