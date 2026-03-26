@@ -15,7 +15,7 @@ logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
 
 from dotenv import load_dotenv
 from pydantic import SecretStr
-from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
@@ -25,15 +25,18 @@ from langchain_core.runnables import RunnablePassthrough
 load_dotenv()
 
 # 1. Safely grab the token (use an empty string if it comes back as None)
+# 1. Safely grab the token
 hf_token = os.getenv("HF_TOKEN") or ""
 
 print("Connecting to HuggingFace Inference API...")
 
-# 2. Wrap the token in SecretStr to make Pylance and Langchain happy
-global_embeddings = HuggingFaceInferenceAPIEmbeddings(
-    api_key=SecretStr(hf_token),
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
+# 2. Use the official Endpoint class
+global_embeddings = HuggingFaceEndpointEmbeddings(
+    model="sentence-transformers/all-MiniLM-L6-v2",
+    huggingfacehub_api_token=hf_token,
+    task="feature-extraction"
 )
+
 print("Embeddings ready.")
 
 def get_retriever(car_model: str):
