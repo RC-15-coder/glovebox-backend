@@ -17,7 +17,7 @@ GloveBox AI eliminates the frustration of searching through 600-page car manuals
 
 No hallucinations. No guessing. Just the manual, answered intelligently.
 
-**🔗 Live Website: [glovebox-ai.vercel.app](https://glovebox-ai.vercel.app)**
+🔗 **[Live Website](https://glovebox-ai.vercel.app)**
 
 ---
 
@@ -113,13 +113,13 @@ touch .env
 ```
 
 Add to `.env`:
-` ` `env
-GROQ_API_KEY=your_groq_key
-PINECONE_API_KEY=your_pinecone_key
-HF_TOKEN=your_huggingface_token
-` ` `
+```
+GROQ_API_KEY=groq_key
+PINECONE_API_KEY=pinecone_key
+HF_TOKEN=huggingface_token
+```
 
-` ` `bash
+```bash
 # Start the backend server
 uvicorn app.main:app --reload
 ` ` `
