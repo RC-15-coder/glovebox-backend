@@ -55,7 +55,7 @@ def get_rag_chain(car_model: str):
     retriever = get_retriever(car_model)
 
     llm = ChatGroq(
-        model="llama-3.1-8b-instant",
+        model="openai/gpt-oss-20b",
         temperature=0.1,
     )
 
